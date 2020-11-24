@@ -109,12 +109,12 @@ def find_valid_boxes(line_size, box_size, words):
         for box in remove_boxes:
             valid_boxes.remove(box)
 
-        remove_boxes = set()
+        remove_boxes.clear()
 
         for box in new_valid_boxes:
             valid_boxes.add(box)
 
-        new_valid_boxes = set()
+        new_valid_boxes.clear()
 
     return finished_boxes
 
@@ -165,7 +165,7 @@ def space_rating(box):
 
 def var_rating(box):
     non_spaces_per_line = [len(l) for l in [s.content.replace(" ", "") for s in box.lines]]
-    return variance(non_spaces_per_line)
+    return variance(non_spaces_per_line) if len(non_spaces_per_line) != 1 else 0
 
 def determine_best_boxes(boxes, rating):
     best_val = rating(min(boxes, key=rating))
